@@ -23,6 +23,9 @@ export function App() {
               <Link to="/about" className="hover:text-gray-300">
                 About
               </Link>
+              <Link to="/transaction" className="hover:text-gray-300">
+                Transaction
+              </Link>
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
