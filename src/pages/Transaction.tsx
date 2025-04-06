@@ -42,11 +42,17 @@ export function Transaction() {
 
           console.log("status", status);
 
+          // Check if the status is "Confirmed"
           if (status.type === "Confirmed") {
+            const confirmedStatus = status as {
+              type: string;
+              blockHash: string;
+            };
+
             // Get additional block information
             const blockflowInfo =
               await nodeProvider.blockflow.getBlockflowBlocksBlockHash(
-                status.blockHash
+                confirmedStatus.blockHash
               );
 
             console.log("Blockflow hash:", blockflowInfo);
@@ -72,10 +78,8 @@ export function Transaction() {
         } catch (error) {
           console.error("Error checking transaction status:", error);
           // If we can't get the status after multiple attempts, mark as failed
-          if (
-            (error as any)?.status === 404 &&
-            txDetails.status === "pending"
-          ) {
+          const errorResponse = error as { status?: number };
+          if (errorResponse?.status === 404 && txDetails.status === "pending") {
             setTxDetails({
               ...txDetails,
               status: "failed",
@@ -303,12 +307,14 @@ export function Transaction() {
                       </span>
                       <button
                         onClick={() => {
-                          navigator.clipboard.writeText(txDetails.blockHash);
-                          toast({
-                            title: "Copied to clipboard",
-                            description: "Block hash has been copied",
-                            variant: "default",
-                          });
+                          if (txDetails.blockHash) {
+                            navigator.clipboard.writeText(txDetails.blockHash);
+                            toast({
+                              title: "Copied to clipboard",
+                              description: "Block hash has been copied",
+                              variant: "default",
+                            });
+                          }
                         }}
                         className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
                         title="Copy block hash"
