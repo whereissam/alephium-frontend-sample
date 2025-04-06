@@ -13,12 +13,17 @@ interface TxDetails {
   confirmations?: number;
   blockHash?: string;
   timestamp?: number;
+  chainFrom?: number;
+  chainTo?: number;
+  height?: number;
 }
 
 export function Transaction() {
   const { toast } = useToast();
   const { signer, account, nodeProvider } = useWallet();
-  const [receiverAddress, setReceiverAddress] = useState("");
+  const [receiverAddress, setReceiverAddress] = useState(
+    "13wDSTZZLKouRN6ksZx5FYvyghRZC8nrCNQrvC1HRHZL8"
+  );
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [txDetails, setTxDetails] = useState<TxDetails | null>(null);
@@ -35,10 +40,26 @@ export function Transaction() {
             txId: txDetails.txId,
           });
 
+          console.log("status", status);
+
           if (status.type === "Confirmed") {
+            // Get additional block information
+            const blockflowInfo =
+              await nodeProvider.blockflow.getBlockflowBlocksBlockHash(
+                status.blockHash
+              );
+
+            console.log("Blockflow hash:", blockflowInfo);
+
+            // Update transaction details with block information
             setTxDetails({
               ...txDetails,
               status: "confirmed",
+              blockHash: blockflowInfo.hash,
+              timestamp: blockflowInfo.timestamp,
+              chainFrom: blockflowInfo.chainFrom,
+              chainTo: blockflowInfo.chainTo,
+              height: blockflowInfo.height,
             });
 
             toast({
@@ -201,11 +222,12 @@ export function Transaction() {
                 Transaction ID:
               </span>
               <div className="flex items-center gap-2">
-                <span 
-                  className="font-mono text-sm cursor-help" 
+                <span
+                  className="font-mono text-sm cursor-help"
                   title={txDetails.txId}
                 >
-                  {txDetails.txId.substring(0, 8)}...{txDetails.txId.substring(txDetails.txId.length - 8)}
+                  {txDetails.txId.substring(0, 8)}...
+                  {txDetails.txId.substring(txDetails.txId.length - 8)}
                 </span>
                 <button
                   onClick={() => {
@@ -219,8 +241,26 @@ export function Transaction() {
                   className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
                   title="Copy transaction ID"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-500 dark:text-gray-400">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-gray-500 dark:text-gray-400"
+                  >
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                   </svg>
                 </button>
@@ -242,6 +282,99 @@ export function Transaction() {
                   txDetails.status.slice(1)}
               </span>
             </div>
+
+            {/* Add block details when confirmed */}
+            {txDetails.status === "confirmed" && (
+              <>
+                {txDetails.blockHash && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Block Hash:
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="font-mono text-sm cursor-help"
+                        title={txDetails.blockHash}
+                      >
+                        {txDetails.blockHash.substring(0, 8)}...
+                        {txDetails.blockHash.substring(
+                          txDetails.blockHash.length - 8
+                        )}
+                      </span>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(txDetails.blockHash);
+                          toast({
+                            title: "Copied to clipboard",
+                            description: "Block hash has been copied",
+                            variant: "default",
+                          });
+                        }}
+                        className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                        title="Copy block hash"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-gray-500 dark:text-gray-400"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                          ></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {txDetails.timestamp && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Timestamp:
+                    </span>
+                    <span className="text-sm">
+                      {new Date(txDetails.timestamp).toLocaleString()}
+                    </span>
+                  </div>
+                )}
+
+                {txDetails.height !== undefined && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Block Height:
+                    </span>
+                    <span className="text-sm">
+                      {txDetails.height.toLocaleString()}
+                    </span>
+                  </div>
+                )}
+
+                {txDetails.chainFrom !== undefined &&
+                  txDetails.chainTo !== undefined && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400">
+                        Chain:
+                      </span>
+                      <span className="text-sm">
+                        {txDetails.chainFrom} → {txDetails.chainTo}
+                      </span>
+                    </div>
+                  )}
+              </>
+            )}
 
             <div className="mt-2">
               <a
