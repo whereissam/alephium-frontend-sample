@@ -14,7 +14,9 @@ function WalletBalance() {
   if (connectionStatus !== "connected") {
     return (
       <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm text-center">
-        <p className="text-gray-500 dark:text-gray-400">Connect wallet to see balance</p>
+        <p className="text-gray-500 dark:text-gray-400">
+          Connect wallet to see balance
+        </p>
       </div>
     );
   }
@@ -34,7 +36,7 @@ function WalletBalance() {
 // Network and Address Group Info component
 function NetworkInfo() {
   const { network, addressGroup } = useWalletConfig();
-  
+
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
       <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
@@ -43,11 +45,17 @@ function NetworkInfo() {
       <div className="space-y-2">
         <p className="flex justify-between">
           <span className="text-gray-600 dark:text-gray-400">Network:</span>
-          <span className="font-medium text-indigo-600 dark:text-indigo-400 capitalize">{network}</span>
+          <span className="font-medium text-indigo-600 dark:text-indigo-400 capitalize">
+            {network}
+          </span>
         </p>
         <p className="flex justify-between">
-          <span className="text-gray-600 dark:text-gray-400">Address Group:</span>
-          <span className="font-medium text-indigo-600 dark:text-indigo-400">{addressGroup !== undefined ? addressGroup : 'Any'}</span>
+          <span className="text-gray-600 dark:text-gray-400">
+            Address Group:
+          </span>
+          <span className="font-medium text-indigo-600 dark:text-indigo-400">
+            {addressGroup !== undefined ? addressGroup : "Any"}
+          </span>
         </p>
       </div>
     </div>
@@ -106,7 +114,7 @@ export function Home() {
         >
           <img
             src={"https://avatars.githubusercontent.com/u/38327433?s=280&v=4"}
-            className="h-16 w-16"
+            className="h-16 w-16 bg-white dark:bg-slate-300 rounded-full shadow-md  dark:border-gray-700"
             alt="Alephium logo"
           />
         </a>
@@ -121,7 +129,7 @@ export function Home() {
         <CustomConnectButton />
         <WalletBalance />
       </div>
-      
+
       {/* Network Info Section */}
       <div className="mb-10">
         <NetworkInfo />

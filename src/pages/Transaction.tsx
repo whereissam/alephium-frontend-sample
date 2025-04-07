@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { useWallet } from "@alephium/web3-react";
+import { useWallet, useBalance } from "@alephium/web3-react";
 
 type TxStatus = "none" | "pending" | "confirmed" | "failed";
 
@@ -21,6 +21,7 @@ interface TxDetails {
 export function Transaction() {
   const { toast } = useToast();
   const { signer, account, nodeProvider } = useWallet();
+  const { balance, updateBalanceForTx } = useBalance();
   const [receiverAddress, setReceiverAddress] = useState(
     "13wDSTZZLKouRN6ksZx5FYvyghRZC8nrCNQrvC1HRHZL8"
   );
@@ -40,8 +41,6 @@ export function Transaction() {
             txId: txDetails.txId,
           });
 
-          console.log("status", status);
-
           // Check if the status is "Confirmed"
           if (status.type === "Confirmed") {
             const confirmedStatus = status as {
@@ -55,8 +54,6 @@ export function Transaction() {
                 confirmedStatus.blockHash
               );
 
-            console.log("Blockflow hash:", blockflowInfo);
-
             // Update transaction details with block information
             setTxDetails({
               ...txDetails,
@@ -67,6 +64,9 @@ export function Transaction() {
               chainTo: blockflowInfo.chainTo,
               height: blockflowInfo.height,
             });
+
+            const updateinfo = updateBalanceForTx(txDetails.txId);
+            console.log("updateinfo", updateinfo);
 
             toast({
               title: "Transaction confirmed",
@@ -100,7 +100,7 @@ export function Transaction() {
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
-  }, [txDetails, nodeProvider, toast]);
+  }, [txDetails, nodeProvider, toast, updateBalanceForTx]);
 
   const handleSendTransaction = async () => {
     if (!signer || !account || !nodeProvider) {
@@ -174,42 +174,126 @@ export function Transaction() {
     }
   };
 
+  const handleMaxClick = () => {
+    console.log("Handle max click, balance:", balance);
+
+    // Direct check of the balanceHint (we know the structure from console log)
+    if (balance?.balanceHint) {
+      const balanceValue = balance.balanceHint.split(" ")[0]; // "0.552 ALPH" -> "0.552"
+
+      if (balanceValue) {
+        try {
+          // Subtract a small amount for gas
+          const numericBalance = parseFloat(balanceValue);
+          const maxWithGas = Math.max(0, numericBalance - 0.01).toFixed(6);
+          console.log(
+            "Setting max amount:",
+            maxWithGas,
+            "from balanceHint:",
+            balanceValue
+          );
+
+          // Directly set the amount state
+          setAmount(maxWithGas);
+        } catch (err) {
+          console.error("Error parsing balance:", err);
+          // Fallback: use the raw value
+          setAmount(balanceValue);
+        }
+      }
+    } else {
+      console.log("No balance hint available");
+      // Alternative: try with balance directly if balanceHint is not available
+      if (balance?.balance) {
+        const rawBalance = balance.balance;
+        // Convert from base units (18 decimals)
+        const convertedBalance = (parseInt(rawBalance) / 1e18).toFixed(6);
+        const maxWithGas = Math.max(
+          0,
+          parseFloat(convertedBalance) - 0.01
+        ).toFixed(6);
+        console.log(
+          "Using raw balance:",
+          rawBalance,
+          "converted:",
+          convertedBalance,
+          "max:",
+          maxWithGas
+        );
+        setAmount(maxWithGas);
+      }
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-      <h1 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-purple-400">
+      <h1 className="text-2xl font-bold text-center mb-6 text-blue-600 dark:text-blue-400">
         Send ALPH Tokens
       </h1>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="receiver-address">Receiver Address</Label>
+          <Label
+            htmlFor="receiver-address"
+            className="text-gray-700 dark:text-gray-300"
+          >
+            Receiver Address
+          </Label>
           <Input
             id="receiver-address"
             placeholder="Enter receiver address"
             value={receiverAddress}
             onChange={(e) => setReceiverAddress(e.target.value)}
-            className="dark:bg-gray-700 dark:border-gray-600"
+            className="dark:bg-gray-700 dark:border-gray-600 h-12"
           />
         </div>
 
+        {/* Amount Input - Styled like the images */}
         <div className="space-y-2">
-          <Label htmlFor="amount">Amount (ALPH)</Label>
-          <Input
-            id="amount"
-            type="number"
-            step="0.000001"
-            min="0"
-            placeholder="0.0"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="dark:bg-gray-700 dark:border-gray-600"
-          />
+          <Label htmlFor="amount" className="text-gray-700 dark:text-gray-300">
+            Amount (ALPH)
+          </Label>
+          <div className="rounded-md bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+            <div className="flex items-center">
+              <input
+                id="amount"
+                type="text"
+                inputMode="decimal"
+                placeholder="0"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="w-full h-16 pl-4 pr-16 text-4xl font-light outline-none border-none bg-transparent dark:text-gray-200"
+              />
+              <div className="flex items-center pr-4">
+                <div className="text-xl text-gray-500 dark:text-gray-400 mr-2">
+                  ALPH
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between items-center mt-2">
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              ${amount ? (parseFloat(amount) * 0.12).toFixed(2) : "0"}
+            </span>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                {balance?.balanceHint || "0 ALPH"}
+              </span>
+              <button
+                type="button"
+                onClick={handleMaxClick}
+                className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 font-medium text-sm bg-blue-50 dark:bg-blue-900/30 px-2 py-1 rounded"
+              >
+                Max
+              </button>
+            </div>
+          </div>
         </div>
 
         <Button
           onClick={handleSendTransaction}
           disabled={isLoading || !receiverAddress || !amount}
-          className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+          className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
         >
           {isLoading ? "Sending..." : "Send Tokens"}
         </Button>
@@ -287,7 +371,7 @@ export function Transaction() {
               </span>
             </div>
 
-            {/* Add block details when confirmed */}
+            {/* Transaction details remain unchanged */}
             {txDetails.status === "confirmed" && (
               <>
                 {txDetails.blockHash && (
