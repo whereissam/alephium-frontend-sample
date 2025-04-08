@@ -5,24 +5,29 @@ import {
 } from "@alephium/web3-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useState } from "react";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+// Add this import at the top with your other imports
 
 export function App() {
-  const [network, setNetwork] = useState<"testnet" | "mainnet" | "devnet">("testnet");
-  
+  const [network, setNetwork] = useState<"testnet" | "mainnet" | "devnet">(
+    "testnet"
+  );
+
   const displayAccount = (account: any) => {
     const address = account.address;
     return `${address?.slice(0, 4)}...${address.slice(-4)}`;
   };
 
-  const handleNetworkChange = (newNetwork: "testnet" | "mainnet" | "devnet") => {
+  const handleNetworkChange = (
+    newNetwork: "testnet" | "mainnet" | "devnet"
+  ) => {
     setNetwork(newNetwork);
     // You might want to add additional logic here, like disconnecting wallet when changing networks
   };
@@ -42,38 +47,50 @@ export function App() {
               <Link to="/transaction" className="hover:text-gray-300">
                 Transaction
               </Link>
+              <Link to="/network-info" className="hover:text-gray-300">
+                Network Info
+              </Link>
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
-              
+
               {/* Network Selector Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-9 flex items-center gap-2 bg-gray-700 border-gray-500 hover:bg-gray-600 text-white">
-                    <div className={`w-3 h-3 rounded-full ${
-                      network === "mainnet" ? "bg-green-400" : 
-                      network === "testnet" ? "bg-yellow-400" : "bg-purple-400"
-                    }`} />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-9 flex items-center gap-2 bg-gray-700 border-gray-500 hover:bg-gray-600 text-white"
+                  >
+                    <div
+                      className={`w-3 h-3 rounded-full ${
+                        network === "mainnet"
+                          ? "bg-green-400"
+                          : network === "testnet"
+                            ? "bg-yellow-400"
+                            : "bg-purple-400"
+                      }`}
+                    />
                     <span className="capitalize">{network}</span>
                     <ChevronDown className="h-4 w-4 opacity-70" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-gray-800 border border-gray-600 text-white">
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={() => handleNetworkChange("mainnet")}
                     className="flex items-center gap-2 cursor-pointer hover:bg-gray-700 focus:bg-gray-700 focus:text-white"
                   >
                     <div className="w-3 h-3 rounded-full bg-green-400" />
                     <span>Mainnet</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={() => handleNetworkChange("testnet")}
                     className="flex items-center gap-2 cursor-pointer hover:bg-gray-700 focus:bg-gray-700 focus:text-white"
                   >
                     <div className="w-3 h-3 rounded-full bg-yellow-400" />
                     <span>Testnet</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={() => handleNetworkChange("devnet")}
                     className="flex items-center gap-2 cursor-pointer hover:bg-gray-700 focus:bg-gray-700 focus:text-white"
                   >
@@ -82,7 +99,7 @@ export function App() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              
+
               <AlephiumConnectButton displayAccount={displayAccount} />
             </div>
           </div>
