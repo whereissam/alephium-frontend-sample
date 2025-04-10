@@ -17,16 +17,16 @@ A modern, feature-rich starter template for building dApps on the Alephium block
 
 ### Prerequisites
 
-- Node.js (v16 or later)
-- npm or yarn
+- Node.js (v18 or later)
+- bun
 
 ### Installation
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/whereissam/React-Vite-Tanstack-Starter-Template.git
-cd React-Vite-Tanstack-Starter-Template
+git clone https://github.com/whereissam/alephium-frontend-sample.git
+cd alephium-frontend-sample
 ```
 ### 2. Install dependencies:
 ```bash
