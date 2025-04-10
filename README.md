@@ -81,9 +81,9 @@ The build artifacts will be stored in the dist/ directory, ready to be deployed 
 
 ## Alephium Infos
 
-- [Mainnet Node](https://node.mainnet.alephium.org/)
-- [Testnet API](https://node.mainnet.alephium.org/docs/)
-- [Testnet Node](https://node.testnet.alephium.org/)
+- [Mainnet Node](https://node.mainnet.alephium.org/) - https://node.mainnet.alephium.org
+- [Mainnet API](https://node.mainnet.alephium.org/docs/)
+- [Testnet Node](https://node.testnet.alephium.org/) - https://node.testnet.alephium.org
 - [Testnet API](https://node.testnet.alephium.org/docs/)
 - [Little Ralph's Book](https://ralph.alephium.org/)
 

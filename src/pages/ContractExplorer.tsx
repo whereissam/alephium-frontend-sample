@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { addressFromContractId } from "@alephium/web3";
+import TokenConverter from "../components/TokenConverter";
 
 // Define the missing types
 interface ContractEventsByTxId {
@@ -189,6 +191,28 @@ export function ContractExplorer() {
     return <span>{field.value}</span>;
   };
 
+  // Add these new state variables for the converter tab
+  const [contractId, setContractId] = useState(
+    "9626780058a51b26e020679ecb1117b0d719e10b8cffbdc72384384cb1db7900"
+  );
+  const [convertedAddress, setConvertedAddress] = useState("");
+  const [conversionError, setConversionError] = useState("");
+
+  // Add this new function for the converter
+  const convertContractIdToAddress = () => {
+    if (!contractId) return;
+
+    try {
+      setConversionError("");
+      const address = addressFromContractId(contractId);
+      setConvertedAddress(address);
+    } catch (error) {
+      console.error("Error converting contract ID:", error);
+      setConversionError("Invalid contract ID format");
+      setConvertedAddress("");
+    }
+  };
+
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-6 text-center text-blue-500">
@@ -210,6 +234,18 @@ export function ContractExplorer() {
                 className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-white dark:data-[state=active]:bg-[#1a2235] h-full flex items-center justify-center"
               >
                 Event Explorer
+              </TabsTrigger>
+              <TabsTrigger
+                value="convert"
+                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-white dark:data-[state=active]:bg-[#1a2235] h-full flex items-center justify-center"
+              >
+                Contract ID Converter
+              </TabsTrigger>
+              <TabsTrigger
+                value="tokens"
+                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-white dark:data-[state=active]:bg-[#1a2235] h-full flex items-center justify-center"
+              >
+                Token Explorer
               </TabsTrigger>
             </TabsList>
           </div>
@@ -532,10 +568,109 @@ export function ContractExplorer() {
               )}
             </div>
           </TabsContent>
+
+          <TabsContent value="convert" className="p-6">
+            <div className="space-y-6">
+              <div>
+                <label className="text-sm font-medium mb-2 block text-slate-700 dark:text-slate-300">
+                  Contract ID
+                </label>
+                <div className="flex space-x-3">
+                  <Input
+                    placeholder="Enter contract ID"
+                    value={contractId}
+                    onChange={(e) => setContractId(e.target.value)}
+                    className="bg-white dark:bg-[#131825] border-slate-200 dark:border-[#2a3245] text-slate-900 dark:text-white focus:border-blue-500 focus:ring-blue-500"
+                  />
+                  <Button
+                    onClick={convertContractIdToAddress}
+                    disabled={!contractId}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-6"
+                  >
+                    Convert
+                  </Button>
+                </div>
+                {conversionError && (
+                  <p className="mt-2 text-red-500 text-sm">{conversionError}</p>
+                )}
+              </div>
+
+              {convertedAddress && (
+                <div className="mt-6 bg-white dark:bg-[#232b3d] p-6 rounded-xl shadow-sm">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
+                    Conversion Result
+                  </h3>
+                  <div className="flex flex-col">
+                    <span className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                      Contract Address
+                    </span>
+                    <div className="flex items-center">
+                      <span className="font-mono text-sm bg-slate-50 dark:bg-[#1a2235] p-2 rounded-lg border border-slate-100 dark:border-[#2a3245] flex-grow">
+                        {convertedAddress}
+                      </span>
+                      <Button
+                        onClick={() => {
+                          navigator.clipboard.writeText(convertedAddress);
+                        }}
+                        className="ml-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200"
+                        size="sm"
+                      >
+                        Copy
+                      </Button>
+                    </div>
+                    <div className="mt-4">
+                      <Button
+                        onClick={() => {
+                          setContractAddress(convertedAddress);
+                          setActiveTab("contract");
+                        }}
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        Explore This Contract
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-6 bg-white dark:bg-[#232b3d] p-6 rounded-xl shadow-sm">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
+                  About Contract IDs
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300">
+                  Contract IDs are unique identifiers for smart contracts on the
+                  Alephium blockchain. They can be converted to contract
+                  addresses, which are used to interact with the contracts.
+                </p>
+                <p className="text-slate-600 dark:text-slate-300 mt-2">
+                  The contract address is derived from the contract ID using a
+                  deterministic algorithm.
+                </p>
+              </div>
+
+              {/* Insert the Token Converter component here below the contract ID converter */}
+              <TokenConverter />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="tokens" className="p-6">
+            <div className="space-y-6">
+              <div className="bg-white dark:bg-[#232b3d] p-6 rounded-xl shadow-sm">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
+                  Token Explorer
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300 mb-4">
+                  Browse and search tokens from the official Alephium token
+                  list. Convert token IDs to contract addresses.
+                </p>
+
+                {/* Add the TokenConverter component in the token tab as well */}
+                <TokenConverter />
+              </div>
+            </div>
+          </TabsContent>
         </Tabs>
       </div>
     </div>
   );
 }
-
-export default ContractExplorer;
