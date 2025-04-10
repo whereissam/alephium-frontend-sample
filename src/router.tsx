@@ -8,6 +8,7 @@ import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Transaction } from "./pages/Transaction";
 import { NetworkInfo } from "./pages/NetworkInfo";
+import { ContractExplorer } from "./pages/ContractExplorer";
 
 const rootRoute = createRootRoute({
   component: App,
@@ -37,11 +38,18 @@ const networkInfoRoute = createRoute({
   component: NetworkInfo,
 });
 
+const contractExplorerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/contract-explorer",
+  component: ContractExplorer,
+});
+
 const routeTree = rootRoute.addChildren([
   homeRoute,
   aboutRoute,
   transactionRoute,
   networkInfoRoute,
+  contractExplorerRoute,
 ]);
 
 export const router = createRouter({ routeTree });

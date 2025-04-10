@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-// Add this import at the top with your other imports
 
 export function App() {
   const [network, setNetwork] = useState<"testnet" | "mainnet" | "devnet">(
@@ -49,6 +48,9 @@ export function App() {
               </Link>
               <Link to="/network-info" className="hover:text-gray-300">
                 Network Info
+              </Link>
+              <Link to="/contract-explorer" className="hover:text-gray-300">
+                Contract Explorer
               </Link>
             </div>
             <div className="flex items-center gap-4">
