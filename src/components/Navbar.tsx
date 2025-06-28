@@ -125,7 +125,6 @@ export function Navbar({ network, onNetworkChange, displayAccount }: NavbarProps
             <div className="text-gray-400 hover:text-gray-300 transition-colors">
               <AlephiumConnectButton 
                 displayAccount={displayAccount}
-                className="!bg-transparent !border-none !text-gray-400 hover:!text-gray-300 !text-xs !font-medium !p-0 transition-colors cursor-pointer"
               />
             </div>
 
@@ -237,7 +236,6 @@ export function Navbar({ network, onNetworkChange, displayAccount }: NavbarProps
               <div className="px-4 py-2">
                 <AlephiumConnectButton 
                   displayAccount={displayAccount}
-                  className="!w-full !bg-blue-500 hover:!bg-blue-600 !text-white !font-semibold !py-3 !rounded-lg !transition-all"
                 />
               </div>
             </div>
