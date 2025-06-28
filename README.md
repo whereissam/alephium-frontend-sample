@@ -2,6 +2,8 @@
 
 A beautifully designed, modern dApp showcase for the Alephium blockchain featuring vibrant UI, responsive design, and comprehensive blockchain integration.
 
+![](https://i.imgur.com/K98O2SR.png)
+
 ## ✨ Features
 
 - ⚡️ **Vite 7** - Lightning fast build tool with HMR
