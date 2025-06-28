@@ -6,7 +6,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { X } from "lucide-react";
+import { X, Menu } from "lucide-react";
+import { useState } from "react";
 
 interface NavbarProps {
   network: "testnet" | "mainnet" | "devnet";
@@ -15,12 +16,13 @@ interface NavbarProps {
 }
 
 export function Navbar({ network, onNetworkChange, displayAccount }: NavbarProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <nav className="w-full bg-gray-950/90 backdrop-blur-xl border-b border-gray-800/20 relative z-50">
       {/* Centered Container - NOT full width */}
-      <div className="max-w-5xl mx-auto px-8 py-4">
-        <div className="flex items-center justify-start space-x-12 relative pointer-events-auto">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+        <div className="flex items-center justify-between relative pointer-events-auto">
           
           {/* Left Section - Brand Identity */}
           <Link to="/" className="flex items-center group transition-all duration-200 hover:scale-105">
@@ -33,39 +35,48 @@ export function Navbar({ network, onNetworkChange, displayAccount }: NavbarProps
             </div>
           </Link>
 
-          {/* Center Section - Primary Navigation */}
-          <div className="flex items-center space-x-8 relative z-20">
+          {/* Center Section - Primary Navigation (Hidden on mobile) */}
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8 relative z-20">
             <Link 
               to="/about" 
-              className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:bg-gray-800/30 px-3 py-2 rounded"
+              className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:bg-gray-800/30 px-2 lg:px-3 py-2 rounded"
             >
               About
             </Link>
             <Link 
               to="/transaction" 
-              className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:bg-gray-800/30 px-3 py-2 rounded"
+              className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:bg-gray-800/30 px-2 lg:px-3 py-2 rounded"
             >
               Send
             </Link>
             <Link 
               to="/network-info" 
-              className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:bg-gray-800/30 px-3 py-2 rounded"
+              className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:bg-gray-800/30 px-2 lg:px-3 py-2 rounded"
             >
               Network
             </Link>
             <Link 
               to="/contract-explorer" 
-              className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:bg-gray-800/30 px-3 py-2 rounded"
+              className="text-gray-300 hover:text-white text-sm font-medium transition-colors hover:bg-gray-800/30 px-2 lg:px-3 py-2 rounded"
             >
               Explorer
             </Link>
           </div>
 
-          {/* Spacer to push right section to the end */}
-          <div className="flex-1"></div>
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden p-2 rounded-lg hover:bg-gray-800/30 transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6 text-gray-300" />
+            ) : (
+              <Menu className="w-6 h-6 text-gray-300" />
+            )}
+          </button>
 
           {/* Right Section - Utility/External Links */}
-          <div className="flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-3 sm:space-x-4 lg:space-x-6">
             {/* Network Selector */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -79,7 +90,7 @@ export function Navbar({ network, onNetworkChange, displayAccount }: NavbarProps
                           : "bg-purple-500"
                     }`}
                   />
-                  <span className="uppercase tracking-wider">{network}</span>
+                  <span className="hidden sm:inline uppercase tracking-wider">{network}</span>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent 
@@ -135,6 +146,104 @@ export function Navbar({ network, onNetworkChange, displayAccount }: NavbarProps
           </div>
         </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 bg-gray-950/95 backdrop-blur-xl border-b border-gray-800/20 z-40">
+          <div className="max-w-5xl mx-auto px-4 py-4 space-y-3">
+            {/* Navigation Links */}
+            <Link 
+              to="/about" 
+              className="block text-gray-300 hover:text-white text-base font-medium transition-colors hover:bg-gray-800/30 px-4 py-3 rounded-lg"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              About
+            </Link>
+            <Link 
+              to="/transaction" 
+              className="block text-gray-300 hover:text-white text-base font-medium transition-colors hover:bg-gray-800/30 px-4 py-3 rounded-lg"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Send
+            </Link>
+            <Link 
+              to="/network-info" 
+              className="block text-gray-300 hover:text-white text-base font-medium transition-colors hover:bg-gray-800/30 px-4 py-3 rounded-lg"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Network
+            </Link>
+            <Link 
+              to="/contract-explorer" 
+              className="block text-gray-300 hover:text-white text-base font-medium transition-colors hover:bg-gray-800/30 px-4 py-3 rounded-lg"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Explorer
+            </Link>
+            
+            {/* Mobile Network Selector */}
+            <div className="pt-2 border-t border-gray-800/30">
+              <div className="px-4 py-2">
+                <span className="text-sm text-gray-400 font-medium">Network</span>
+                <div className="mt-2 space-y-2">
+                  <button
+                    onClick={() => {
+                      onNetworkChange("mainnet");
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors ${
+                      network === "mainnet" 
+                        ? "bg-green-500/10 text-green-400" 
+                        : "text-gray-300 hover:bg-gray-800/30"
+                    }`}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-green-500" />
+                    <span>Mainnet</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      onNetworkChange("testnet");
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors ${
+                      network === "testnet" 
+                        ? "bg-yellow-500/10 text-yellow-400" 
+                        : "text-gray-300 hover:bg-gray-800/30"
+                    }`}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                    <span>Testnet</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      onNetworkChange("devnet");
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors ${
+                      network === "devnet" 
+                        ? "bg-purple-500/10 text-purple-400" 
+                        : "text-gray-300 hover:bg-gray-800/30"
+                    }`}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-purple-500" />
+                    <span>Devnet</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Wallet Connection */}
+            <div className="pt-2 border-t border-gray-800/30">
+              <div className="px-4 py-2">
+                <AlephiumConnectButton 
+                  displayAccount={displayAccount}
+                  className="!w-full !bg-blue-500 hover:!bg-blue-600 !text-white !font-semibold !py-3 !rounded-lg !transition-all"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

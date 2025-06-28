@@ -8,23 +8,23 @@ export function About() {
         <div className="absolute top-3/4 right-1/3 w-64 h-64 bg-green-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-20">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-400 to-purple-600 rounded-3xl mb-6 shadow-2xl">
-            <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-400 to-purple-600 rounded-2xl sm:rounded-3xl mb-4 sm:mb-6 shadow-2xl">
+            <svg className="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2L2 7V10C2 16 6 20.5 12 22C18 20.5 22 16 22 10V7L12 2Z"/>
             </svg>
           </div>
-          <h1 className="text-5xl sm:text-6xl font-bold text-gray-50 mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-50 mb-4 sm:mb-6 px-4">
             About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Alephium</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">The next-generation blockchain powering decentralized applications</p>
+          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto px-4">The next-generation blockchain powering decentralized applications</p>
         </div>
         
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {/* Main Introduction */}
-          <section className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 sm:p-12 animate-slide-up shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500">
+          <section className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 animate-slide-up shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative">
               <div className="flex items-center space-x-4 mb-6">
@@ -44,8 +44,8 @@ export function About() {
           </section>
 
           {/* Key Features Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <section className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 animate-slide-up shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <section className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 animate-slide-up shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
               <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative">
                 <div className="flex items-center space-x-4 mb-6">
@@ -64,7 +64,7 @@ export function About() {
               </div>
             </section>
 
-            <section className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 animate-slide-up shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
+            <section className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 animate-slide-up shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative">
                 <div className="flex items-center space-x-4 mb-6">

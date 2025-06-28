@@ -158,29 +158,29 @@ export function Home() {
 
       {/* Hero Section */}
       <div className="relative">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
-          <div className="text-center mb-20 animate-fade-in">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-400 via-purple-500 to-green-400 rounded-3xl mb-8 shadow-2xl">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 lg:py-28">
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20 animate-fade-in">
+            <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-blue-400 via-purple-500 to-green-400 rounded-2xl sm:rounded-3xl mb-6 sm:mb-8 shadow-2xl">
               <img
                 src="https://avatars.githubusercontent.com/u/38327433?s=280&v=4"
-                className="w-16 h-16 rounded-2xl"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl"
                 alt="Alephium"
               />
             </div>
-            <h1 className="text-6xl sm:text-7xl font-bold text-gray-50 mb-8 leading-tight">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-gray-50 mb-6 sm:mb-8 leading-tight px-4">
               Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-green-400">Alephium</span>
             </h1>
-            <p className="text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
               The next-generation blockchain powering the future of decentralized applications with unprecedented speed and efficiency.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <span className="px-6 py-3 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 text-blue-300 rounded-2xl text-lg font-semibold backdrop-blur-sm">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 px-4">
+              <span className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 text-blue-300 rounded-xl sm:rounded-2xl text-sm sm:text-lg font-semibold backdrop-blur-sm">
                 ⚡ 10,000+ TPS
               </span>
-              <span className="px-6 py-3 bg-gradient-to-r from-green-500/20 to-green-600/20 border border-green-500/30 text-green-300 rounded-2xl text-lg font-semibold backdrop-blur-sm">
+              <span className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-green-500/20 to-green-600/20 border border-green-500/30 text-green-300 rounded-xl sm:rounded-2xl text-sm sm:text-lg font-semibold backdrop-blur-sm">
                 🌱 Energy Efficient
               </span>
-              <span className="px-6 py-3 bg-gradient-to-r from-purple-500/20 to-purple-600/20 border border-purple-500/30 text-purple-300 rounded-2xl text-lg font-semibold backdrop-blur-sm">
+              <span className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-purple-500/20 to-purple-600/20 border border-purple-500/30 text-purple-300 rounded-xl sm:rounded-2xl text-sm sm:text-lg font-semibold backdrop-blur-sm">
                 🔒 Secure by Design
               </span>
             </div>
@@ -190,57 +190,57 @@ export function Home() {
 
       {/* Main Content */}
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {/* Left Side - Wallet Connection (half height) */}
           <div className="lg:col-span-1">
             <CustomConnectButton />
           </div>
           
           {/* Right Side - Balance and Network Info (full height) */}
-          <div className="lg:col-span-1 space-y-8">
+          <div className="lg:col-span-1 space-y-6 sm:space-y-8">
             <WalletBalance />
             <NetworkInfo />
           </div>
         </div>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-16 sm:mb-20">
+          <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-2xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-50 mb-4">Lightning Fast</h3>
-              <p className="text-gray-300 leading-relaxed">Experience blazing fast transactions with our optimized blockchain technology and BlockFlow sharding architecture.</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-50 mb-3 sm:mb-4">Lightning Fast</h3>
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">Experience blazing fast transactions with our optimized blockchain technology and BlockFlow sharding architecture.</p>
             </div>
           </div>
 
-          <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
+          <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
             <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-50 mb-4">Secure & Reliable</h3>
-              <p className="text-gray-300 leading-relaxed">Built with security-first principles and battle-tested cryptographic algorithms ensuring maximum protection.</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-50 mb-3 sm:mb-4">Secure & Reliable</h3>
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">Built with security-first principles and battle-tested cryptographic algorithms ensuring maximum protection.</p>
             </div>
           </div>
 
-          <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02]">
+          <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-airbnb-dark-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:transform hover:scale-[1.02] sm:col-span-2 lg:col-span-1">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-600 rounded-2xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-400 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-50 mb-4">Developer Friendly</h3>
-              <p className="text-gray-300 leading-relaxed">Comprehensive tools and documentation to build amazing dApps with Ralph programming language and Alphred VM.</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-50 mb-3 sm:mb-4">Developer Friendly</h3>
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">Comprehensive tools and documentation to build amazing dApps with Ralph programming language and Alphred VM.</p>
             </div>
           </div>
         </div>
