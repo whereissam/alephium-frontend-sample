@@ -1,5 +1,113 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+
+@layer base {
+  :root {
+    /* Light mode colors - Enhanced for better contrast */
+    --background: 0 0% 98%;           /* Slightly off-white instead of pure white */
+    --foreground: 222.2 84% 8%;       /* Softer black for better readability */
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 8%;
+    --primary: 217.2 91.2% 59.8%;     /* Brand blue */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 210 40% 94%;         /* Subtle gray background */
+    --secondary-foreground: 222.2 84% 8%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215.4 16.3% 40%;  /* Higher contrast for muted text */
+    --accent: 210 40% 94%;
+    --accent-foreground: 222.2 84% 8%;
+    --destructive: 0 84.2% 55%;       /* Slightly muted red */
+    --destructive-foreground: 0 0% 98%;
+    --border: 214.3 31.8% 85%;        /* Softer borders */
+    --input: 214.3 31.8% 85%;
+    --ring: 217.2 91.2% 59.8%;
+    --chart-1: 217.2 91.2% 59.8%;
+    --chart-2: 142.1 76.2% 36.3%;
+    --chart-3: 47.9 95.8% 53.1%;
+    --chart-4: 0 84.2% 60.2%;
+    --chart-5: 270 95.2% 75.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode colors - Following 9 Dark UI Design Principles */
+    
+    /* Principle 1: Avoid pure colors - Using rich darks instead of #000000 */
+    --background: 220 20% 6%;         /* Deep dark blue-gray base */
+    --foreground: 210 20% 92%;        /* High contrast but not pure white */
+    
+    /* Principle 2: Leverage negative space - Clean card backgrounds */
+    --card: 220 20% 9%;               /* Elevated surface */
+    --card-foreground: 210 20% 92%;
+    
+    /* Principle 3: Careful color saturation - Muted but visible */
+    --popover: 220 20% 9%;
+    --popover-foreground: 210 20% 92%;
+    
+    /* Principle 4: Brand identity preservation - Adjusted blue for dark mode */
+    --primary: 217 91% 65%;           /* Slightly brighter blue for dark backgrounds */
+    --primary-foreground: 220 20% 6%; /* Dark text on bright blue */
+    
+    /* Principle 5: Hierarchy through subtle contrast differences */
+    --secondary: 220 15% 12%;         /* Secondary surfaces */
+    --secondary-foreground: 210 20% 85%;
+    --muted: 220 15% 12%;
+    --muted-foreground: 210 15% 65%;  /* Medium contrast for secondary text */
+    
+    /* Principle 6: Accessible contrast ratios (WCAG compliant) */
+    --accent: 220 15% 15%;            /* Accent backgrounds */
+    --accent-foreground: 210 20% 92%;
+    
+    /* Principle 7: Thoughtful error states */
+    --destructive: 0 65% 55%;         /* Muted red that works in dark mode */
+    --destructive-foreground: 210 20% 92%;
+    
+    /* Principle 8: Subtle borders and inputs */
+    --border: 220 15% 15%;            /* Subtle but visible borders */
+    --input: 220 15% 12%;             /* Input backgrounds */
+    --ring: 217 91% 65%;              /* Focus rings */
+    
+    /* Principle 9: Monochromatic chart colors for dark mode */
+    --chart-1: 217 91% 65%;           /* Primary brand color */
+    --chart-2: 210 15% 70%;           /* Light gray */
+    --chart-3: 210 15% 55%;           /* Medium gray */
+    --chart-4: 210 15% 40%;           /* Dark gray */
+    --chart-5: 210 15% 25%;           /* Darkest gray */
+    
+  }
+  
+  /* Enhanced typography and base styles */
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    /* Principle: Better typography */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    /* Principle: Smooth transitions for theme switching */
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  /* Principle: No harsh shadows in dark mode */
+  .dark {
+    /* Remove or minimize box shadows in dark mode */
+    --shadow-color: 220 20% 3%;
+  }
+  
+  /* Enhanced focus states for accessibility */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
 
 

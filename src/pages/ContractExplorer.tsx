@@ -214,62 +214,104 @@ export function ContractExplorer() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6 text-center text-blue-500">
-        Alephium Explorer
-      </h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-3/4 center w-64 h-64 bg-green-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+      </div>
 
-      <div className="rounded-xl overflow-hidden shadow-md bg-white dark:bg-[#1a2235] border border-slate-200 dark:border-[#2a3245]">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        {/* Header */}
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-400 to-blue-600 rounded-3xl mb-6 shadow-2xl">
+            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h1 className="text-5xl sm:text-6xl font-bold text-gray-50 mb-6">
+            Contract <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Explorer</span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">Discover and analyze smart contracts on the Alephium blockchain</p>
+        </div>
+
+        <div className="bg-gradient-to-br from-gray-800/80 to-gray-850/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl overflow-hidden shadow-airbnb-dark-lg">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <div className="bg-slate-100 dark:bg-[#232b3d]">
-            <TabsList className="w-full flex bg-transparent p-0 h-12">
+          <div className="bg-gradient-to-r from-gray-850/80 to-gray-800/80 border-b border-gray-700/50">
+            <TabsList className="w-full flex bg-transparent p-0 h-16 overflow-x-auto">
               <TabsTrigger
                 value="contract"
-                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-white dark:data-[state=active]:bg-[#1a2235] h-full flex items-center justify-center"
+                className="relative flex-1 min-w-0 rounded-none border-b-2 border-transparent data-[state=active]:border-purple-500 h-full flex items-center justify-center text-gray-400 data-[state=active]:text-gray-100 font-medium text-sm px-4 transition-all cursor-pointer hover:text-gray-200 hover:bg-white/5 group"
               >
-                Contract Explorer
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full opacity-0 group-data-[state=active]:opacity-100 transition-opacity"></div>
+                  <span className="truncate">Contract State</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger
                 value="events"
-                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-white dark:data-[state=active]:bg-[#1a2235] h-full flex items-center justify-center"
+                className="relative flex-1 min-w-0 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 h-full flex items-center justify-center text-gray-400 data-[state=active]:text-gray-100 font-medium text-sm px-4 transition-all cursor-pointer hover:text-gray-200 hover:bg-white/5 group"
               >
-                Event Explorer
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full opacity-0 group-data-[state=active]:opacity-100 transition-opacity"></div>
+                  <span className="truncate">Events</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger
                 value="convert"
-                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-white dark:data-[state=active]:bg-[#1a2235] h-full flex items-center justify-center"
+                className="relative flex-1 min-w-0 rounded-none border-b-2 border-transparent data-[state=active]:border-green-500 h-full flex items-center justify-center text-gray-400 data-[state=active]:text-gray-100 font-medium text-sm px-4 transition-all cursor-pointer hover:text-gray-200 hover:bg-white/5 group"
               >
-                Contract ID Converter
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full opacity-0 group-data-[state=active]:opacity-100 transition-opacity"></div>
+                  <span className="truncate">Converter</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger
                 value="tokens"
-                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-white dark:data-[state=active]:bg-[#1a2235] h-full flex items-center justify-center"
+                className="relative flex-1 min-w-0 rounded-none border-b-2 border-transparent data-[state=active]:border-yellow-500 h-full flex items-center justify-center text-gray-400 data-[state=active]:text-gray-100 font-medium text-sm px-4 transition-all cursor-pointer hover:text-gray-200 hover:bg-white/5 group"
               >
-                Token Explorer
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full opacity-0 group-data-[state=active]:opacity-100 transition-opacity"></div>
+                  <span className="truncate">Tokens</span>
+                </div>
               </TabsTrigger>
             </TabsList>
           </div>
 
-          <TabsContent value="contract" className="p-6">
-            {/* Contract tab content remains the same */}
-            <div className="space-y-5">
-              <div>
-                <label className="text-sm font-medium mb-2 block text-slate-700 dark:text-slate-300">
-                  Contract Address
-                </label>
-                <div className="flex space-x-3">
+          <TabsContent value="contract" className="p-8">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <label className="text-lg font-semibold text-gray-100">
+                    Contract Address
+                  </label>
+                </div>
+                <div className="flex space-x-4">
                   <Input
-                    placeholder="Enter contract address"
+                    placeholder="Enter contract address..."
                     value={contractAddress}
                     onChange={(e) => setContractAddress(e.target.value)}
-                    className="bg-white dark:bg-[#131825] border-slate-200 dark:border-[#2a3245] text-slate-900 dark:text-white focus:border-blue-500 focus:ring-blue-500"
+                    className="bg-gray-900/50 border-gray-600/50 h-14 font-mono text-sm text-gray-100 placeholder:text-gray-400 hover:border-purple-500/50 focus:border-purple-500 transition-all duration-300 rounded-xl backdrop-blur-sm flex-1"
                   />
                   <Button
                     onClick={fetchContractState}
                     disabled={loading || !contractAddress}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6"
+                    className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-400 hover:to-purple-500 text-white font-semibold px-8 h-14 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
                   >
-                    {loading ? "Loading..." : "Fetch"}
+                    {loading ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        <span>Loading...</span>
+                      </div>
+                    ) : (
+                      "Fetch Contract"
+                    )}
                   </Button>
                 </div>
               </div>
@@ -670,6 +712,7 @@ export function ContractExplorer() {
             </div>
           </TabsContent>
         </Tabs>
+        </div>
       </div>
     </div>
   );

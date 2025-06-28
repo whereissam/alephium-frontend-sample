@@ -33,7 +33,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme} className="text-white">
+    <Button variant="ghost" size="icon" onClick={toggleTheme}>
       {theme === "light" ? (
         <Moon className="h-5 w-5" />
       ) : (
